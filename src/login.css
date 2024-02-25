@@ -1,0 +1,163 @@
+.login-MB {
+    height: 69vh; /* Full viewport height */
+    /* background: linear-gradient(#2a00b7, #42006c); */
+    /* background-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlXApxn3qK8ReqP_JCibnuwbdF2BFH_v-tu1hHMVG-NspUrKmBC17TkQ6ewDR4p7tPMBM&usqp=CAU"; */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    /* position: fixed; */
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlXApxn3qK8ReqP_JCibnuwbdF2BFH_v-tu1hHMVG-NspUrKmBC17TkQ6ewDR4p7tPMBM&usqp=CAU");
+        background-size: cover; /* Adjust as needed (cover, contain, etc.) */
+        background-repeat: no-repeat; /* Adjust as needed (repeat, no-repeat) */
+        background-position: center; /* Adjust as needed (center, top left, etc.) */
+  }
+  
+  .container-login {
+    background-color: transparent;
+     padding: 20px;
+    border-radius: 10px; /* Optional rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+  }
+  .text-login{
+    margin-left: 40%;
+    color: black;
+    font-size: 40px;
+    font-weight: 700;
+    margin-left: 20px;
+  }
+  .underline{
+    width: 70%;
+    height: 6px;
+    background: #3c009d;
+    border-radius: 9px;
+  }
+  
+  .inputs{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  /* .input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width:80px;
+    height: 40px;
+    background: #eaeaea;
+    border-radius: 6px;
+
+
+  } */
+  
+
+  
+  @media screen and (max-width: 768px) {
+    .container-login {
+      margin: 25px; /* Adjust margins for smaller screens */
+      /* position: fixed; */
+      padding: 20px;
+     
+        
+      
+      
+    }
+  
+    .header-login {
+      width: auto; /* Allow full width on smaller screens */
+      /* position: relative; */
+    }
+  
+    .text-login {
+      font-size: 20px; /* Adjust font size for readability */
+      margin-left: auto;
+      margin-right: auto; /* Center text horizontally */
+      /* position: relative; */
+    }
+  
+    .underline {
+      width: 100%; /* Match container width */
+      margin-right: 80px; /* Remove unnecessary margin */
+      /* position: relative; */
+    }
+  
+    .inputs {
+      gap: 15px; /* Reduce gap between inputs for smaller screens */
+      /* position: relative; */
+      align-items: center;
+    }
+  
+    .input {
+      width: 100%; /* Make inputs full width */
+      height: 50px; /* Adjust input height */
+      /* position: relative; */
+    }
+    .login-button{
+        font-size: 14px; /* Further adjust font size */
+        /* padding: 8px ; Reduce padding for even smaller screens */
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .text-login {
+      font-size: 16px; /* Further adjust font size for smaller screens */
+    }
+  }
+  .login-button {
+    /* background-color: #4CAF50; */
+  /* border: none;
+   */
+   width: 20%;
+  /* color: white; */
+  /* padding: 15px 32px; */
+  text-align: center;
+  /* text-decoration: none; */
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  /* margin: 10px ; */
+  /* margin-left: 80%; */
+  cursor: pointer;
+  border-radius: 8px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+  }
+  .cancel{
+    /* gap: 80%; */
+    margin-right: 80%;
+    width: 20%;
+    margin-left: 80%;
+    /* margin-bottom : 20%; */
+  }
+  .img-user-logo{
+    height: 69%;
+     width: 40%;
+     margin-right: 60%;
+     margin-bottom: 2px;
+     /* position: fixed; */
+  }
+
+.forgot-password{
+    padding-left: 15px;
+    margin-top: 20px;
+    color: #797979;
+    font-size: 18px;
+    cursor: pointer;
+    /* align-items: center; */
+}
+.forgot-password span{
+    color:whitesmoke;
+    cursor: pointer;
+}
+.login-h{
+    /* width: 100%; */
+    padding:20px;
+    margin-left: 32%;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+     
+}
+  
+  
+  
