@@ -1,12 +1,20 @@
 import "./App.css"
-import "./login.css"
+// import "./login.css"
+// import "./register.css"
+// import "./assets.jpeg/desktop-wallpaper-muhammad-ali-boxing-iphone.jpg"
 import { ImUser } from "react-icons/im";
-import { ImMail3 } from "react-icons/im";
-import { BsFileLock2Fill } from "react-icons/bs";
+// import { ImMail3 } from "react-icons/im";
+// import { FcLockPortrait } from "react-icons/fc";
+import { LiaAddressBookSolid } from "react-icons/lia";
+import { FcPrivacy } from "react-icons/fc";
+import { BsEnvelopeFill } from "react-icons/bs";
+import { FcContacts } from "react-icons/fc";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from "axios";
 import React from 'react';
 import { Col, Row } from 'reactstrap'
+import PropTypes from 'prop-types';
 import { Modal, ModalBody, ModalBodyProps, ModalHeader, modal, ModalFooter, closeBtn, className } from 'reactstrap';
 import { FormGroup, Form, Input, Label, Button } from 'reactstrap';
 import {
@@ -29,38 +37,49 @@ function Nav_Bar(args, props) {
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
- 
+
 
   const [modal, setModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const toggleLoginModaL = () => setLoginModal(loginModal)
-  
+
 
   const toggle = () => setModal(!modal);
 
+  
+
+  const [UserName, setUsername] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+
+
+  const { className1 } = props;
+
+  const [registrationmodal, setRegistrationModal] = useState(false);
+  const registrationtoggle = () => setRegistrationModal(!registrationmodal);
 
 
 
-function MyComponent() {
-  const [user, setUser] = useState({ 
-    email : "vamansrir@gmail.com"
-  });
-  const [icon, setIcon] = useState('default-icon.png'); // Example initial icon
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      let res = await axios.get(`http://localhost:5002/login/${email}/${password}`)
+      console.log(res)
+    }
+    catch (err) {
+      throw err
+    }
+  }
+  
+  
 
-  // ... rest of your component logic and functions
-}
 
 
-
-  const closeBtn = (
-    <button className="close" onClick={toggle} type="button">
-      &times;
-    </button>
-  );
+  
 
   return (
     <div className="n-comtainer">
-      <Navbar color="faded" light>
+      <Navbar color="faded" light className='fixed-top' >
         <NavbarBrand href="/" className="me-auto">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0wLqq0-73oloZ6gmcjphBYfNKrHKTlae6wg&usqp=CAU" style={{ height: "10vh", width: "10vh" }}></img>
         </NavbarBrand>
@@ -71,179 +90,97 @@ function MyComponent() {
             // tag="a"
             onClick={toggle}
           >
-            SignIn
+            Sign-In
           </Button>
-          <Modal isOpen={modal}  toggle ={toggle }  {...props}>
+          <Modal isOpen={modal} toggle={toggle}  {...props}>
             <div className="login-h">
-              LOGIN 
+              LOGIN
             </div>
             <ModalBody className="login-MB"  >
               <div className="container-login">
-              <div className="header-login">
-              {/* <div className="underline"></div> */}
-              </div>
-              <div className="inputs">
-                <div className="input">
-                < ImUser  style={{color:"red"}}/>
-                  <input type="text"/>
+                <div className="header-login">
+                  {/* <div className="underline"></div> */}
                 </div>
-                <div className="input">
-                <ImMail3  style={{color:"red"}} />
-                  <input type="email"/>
-                </div>
-                <div className="input">
-                <BsFileLock2Fill   style={{color:"red"}}/>
-                  <input type="password"/>
-                </div>
-              </div>
-              <div className="forgot-password">Forgot Password? <span>Click Here</span></div>
-              <div className="submit-container">
-              </div>
-              </div>
-              
+                <div className="inputs">
+                  <div className="input">
+                    < ImUser style={{ color: "red" }} /><input type="text" placeholder="Username" />
+                  </div>
 
+                  <div className="input">
+                  <FcPrivacy />
+                    <input type="password" placeholder="Password" />
+                  </div>
+                </div>
+                <div className="forgot-password">Forgot Password? <span>Click Here</span></div>
+                <div className="submit-container">
+                </div>
+              </div>
             </ModalBody>
             <ModalFooter>
-              
-              <Button  className="login-button"  >
+              <Button className="login-button"  >
                 submit
-                
               </Button>
-              
-              <Button  className="cancel"  color="secondary" onClick={toggleLoginModaL }>
+              <Button className="cancel" color="secondary" onClick={toggleLoginModaL}>
                 Cancel
               </Button>
             </ModalFooter>
           </Modal>
         </div>
-        {/* <Button
-          color="primary"
-          href="#"
-          tag="a"
-          onClick={toggle}
-        >
-          SignUp
-        </Button>
-        <Modal isOpen={modal} fade={false} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-          <ModalBody>
-            <>
+        <div>
+      <Button color="danger" onClick={registrationtoggle}>
+        Click Me
+      </Button>
+      <div className="registration-M">
+      <Modal isOpen={registrationmodal} registrationtoggle ={registrationtoggle } className={className1}>
+        <ModalHeader registrationtoggle ={registrationtoggle } >
+          Modal title
+        </ModalHeader>
 
-              <Form>
-                <Row>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="exampleEmail">
-                        Email
-                      </Label>
-                      <Input
-                        id="exampleEmail"
-                        name="email"
-                        placeholder="with a placeholder"
-                        type="email"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="examplePassword">
-                        Password
-                      </Label>
-                      <Input
-                        id="examplePassword"
-                        name="password"
-                        placeholder="password placeholder"
-                        type="password"
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <FormGroup>
-                  <Label for="exampleAddress">
-                    Address
-                  </Label>
-                  <Input
-                    id="exampleAddress"
-                    name="address"
-                    placeholder="1234 Main St"
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="exampleAddress2">
-                    Address 2
-                  </Label>
-                  <Input
-                    id="exampleAddress2"
-                    name="address2"
-                    placeholder="Apartment, studio, or floor"
-                  />
-                </FormGroup>
-                <Row>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="exampleCity">
-                        City
-                      </Label>
-                      <Input
-                        id="exampleCity"
-                        name="city"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={4}>
-                    <FormGroup>
-                      <Label for="exampleState">
-                        State
-                      </Label>
-                      <Input
-                        id="exampleState"
-                        name="state"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={2}>
-                    <FormGroup>
-                      <Label for="exampleZip">
-                        Zip
-                      </Label>
-                      <Input
-                        id="exampleZip"
-                        name="zip"
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <FormGroup check>
-                  <Input
-                    id="exampleCheck"
-                    name="check"
-                    type="checkbox"
-                  />
-                  <Label
-                    check
-                    for="exampleCheck"
-                  >
-                    Check me out
-                  </Label>
-                </FormGroup>
-                <Button>
-                  Sign in
-                </Button>
-              </Form>
-            </>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={toggle}>
-              Do Something
-            </Button>{' '}
-            <Button color="secondary" onClick={toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal> */}
-        <></>
-        {/* </Nav>
-        </Collapse> */}
+        <ModalBody  className="register-MB">
+        <div className="cantainer-register">
+          <div className="inputs-Reg">
+          < ImUser style={{ color: "orange" }} />
+            <label className="input-reg"  htmlFor="Username">Username</label>
+            <input type="text" name="Username" id="Username"  className="inputs-inter-reg"   />
+          </div>
+          <div>
+          <BsEnvelopeFill style={{color:"orange"}}  />
+            <label className="inputs-reg" htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" className="inputs-inter-reg"  />
+          </div>
+          <div>
+          <FcPrivacy />
+            <label  className="inputs-reg"  htmlFor="Password">Password</label>
+            <input type="passsword" name="password" id="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg"  />
+          </div>
+          <div>
+          <FcPrivacy />
+            <label className="inputs-reg"   htmlFor="confirm-Password">Comfirm Password</label>
+            <input type="password" name="password" id="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg" />
+          </div>
+          <div>
+          <FcContacts />
+            <label  className="inputs-reg"   htmlFor="Phone-Number">Phone Number</label>
+            <input type="number" name="number" id="number" className="inputs-inter-reg"  />
+          </div>
+          <div>
+          <LiaAddressBookSolid  style={{background:"orange"}}  />
+            <label  className="inputs-reg"   htmlFor="Address">Address</label>
+            <input type="Address" name="Address" id="Address" className="inputs-inter-reg"   />
+          </div>
+        </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={registrationtoggle}>
+            Do Something
+          </Button>{' '}
+          <Button color="secondary" onClick={registrationtoggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+      </div>
+    </div>
       </Navbar>
 
     </div>

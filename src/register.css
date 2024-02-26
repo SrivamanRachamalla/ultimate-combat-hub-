@@ -1,0 +1,54 @@
+/* Mobile-first styles */
+.cantainer-register {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .register-MB{
+    background-image: url("./assets.jpeg/desktop-wallpaper-muhammad-ali-boxing-iphone.jpg");
+        background-size: cover; /* Adjust as needed (cover, contain, etc.) */
+        background-repeat: no-repeat; /* Adjust as needed (repeat, no-repeat) */
+        background-position: center; /* Adjust as needed (center, top left, etc.) */
+  }
+  
+  .inputs-Reg {
+    margin-bottom: 15px;
+  }
+  
+  .inputs-reg {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .inputs-inter-reg {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Tablet and larger screens */
+  @media (min-width: 768px) {
+    .cantainer-register {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+  
+  /* Desktop and larger screens */
+  @media (min-width: 992px) {
+    .cantainer-register {
+      max-width: 600px;
+    }
+  }
+  
+  /* Larger desktop screens */
+  @media (min-width: 1200px) {
+    .cantainer-register {
+      max-width: 800px;
+    }
+  }
+  
+
