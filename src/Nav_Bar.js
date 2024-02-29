@@ -69,7 +69,7 @@ function Nav_Bar( props) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let res = await axios.get(`http://localhost:5002/login/${formdata.email}/${formdata.password}`)
+      let res = await axios.get(`http://localhost:5002/login/${formdata.username}/${formdata.password}`)
       console.log(res)
       if (res.status === 200) {
         setModal(!modal)
