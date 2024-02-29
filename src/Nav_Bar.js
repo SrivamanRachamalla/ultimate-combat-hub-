@@ -17,22 +17,13 @@ import { Col, Row } from 'reactstrap'
 import PropTypes from 'prop-types';
 import { Modal, ModalBody, ModalBodyProps, ModalHeader, modal, ModalFooter, closeBtn, className } from 'reactstrap';
 import { FormGroup, Form, Input, Label, Button } from 'reactstrap';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
+import { 
+  Navbar, 
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
 } from 'reactstrap';
 
-function Nav_Bar(args, props) {
+
+function Nav_Bar( props) {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -48,36 +39,91 @@ function Nav_Bar(args, props) {
 
   
 
-  const [UserName, setUsername] = useState(false);
-  const [email, setEmail] = useState(false);
-  const [password, setPassword] = useState(false);
+  const [formdata, setFormdata] = useState({
+    username:'',
+    email: '',
+    password: '',
+    confirmpassword: '',
+    phonenumber: '',
+    address: '',
+  })
 
+  const handleInput = (e) => {
+    console.log('handleInput triggered')
+    const { name, value } = e.target
+    setFormdata({
+      ...formdata,
+      [name]: value
+    })
+  }
+  console.log(formdata)
 
-  const { className1 } = props;
+  // const { className1 } = props;
 
   const [registrationmodal, setRegistrationModal] = useState(false);
   const registrationtoggle = () => setRegistrationModal(!registrationmodal);
 
 
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let res = await axios.get(`http://localhost:5002/login/${email}/${password}`)
+      let res = await axios.get(`http://localhost:5002/login/${formdata.email}/${formdata.password}`)
       console.log(res)
+      if (res.status === 200) {
+        setModal(!modal)
+        alert("succefully Logged - in")
+      }
+    
+    //   if(formdata.username === formdata.username && formdata.password === formdata.password){
+    //   setModal(!modal);
+    //   alert("login succesfull");
+    // }else{
+    //   alert('login failed');
+    // }
+      // setLoggedIn(true);
+      // const userData = JSON.parse(res.data);
+      // setUser({
+      //   name: userData.name,
+      //   email: userData.email,
+      //   isAdmin: userData.isAdmin,
+      // })
     }
     catch (err) {
       throw err
     }
   }
-  
-  
+
+// <----------------------register------------------------------>
 
 
 
+  const handleSubmitreg = async (e) => {
+    e.preventDefault()
+    try {
+      if (formdata.password === formdata.confirmpassword) {
+        let res = await axios.post('http://localhost:5002/register', formdata)
+        console.log(res)
+        if (res.status === 200) {
+          setRegistrationModal(!registrationmodal)
+          alert("registered succesfully")
+        }
+      } else {
+        alert("Passwords are not matching, please re-check")
+      }
+    }
+    catch (err) {
+      throw err
+    }
+  }
+
   
+  
+
 
   return (
+
     <div className="n-comtainer">
       <Navbar color="faded" light className='fixed-top' >
         <NavbarBrand href="/" className="me-auto">
@@ -93,31 +139,34 @@ function Nav_Bar(args, props) {
             Sign-In
           </Button>
           <Modal isOpen={modal} toggle={toggle}  {...props}>
+            
             <div className="login-h">
               LOGIN
             </div>
             <ModalBody className="login-MB"  >
+              <Form onSubmit={handleSubmit}>
               <div className="container-login">
                 <div className="header-login">
                   {/* <div className="underline"></div> */}
                 </div>
                 <div className="inputs">
                   <div className="input">
-                    < ImUser style={{ color: "red" }} /><input type="text" placeholder="Username" />
+                    < ImUser style={{ color: "red" }} /><input  placeholder="username"  name="username" id="username"   value={formdata.username} onChange={handleInput}/>
                   </div>
 
                   <div className="input">
                   <FcPrivacy />
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password"  name="password" id="originalpassword"    value={formdata.password} onChange={handleInput} />
                   </div>
                 </div>
                 <div className="forgot-password">Forgot Password? <span>Click Here</span></div>
                 <div className="submit-container">
                 </div>
               </div>
+              </Form>
             </ModalBody>
             <ModalFooter>
-              <Button className="login-button"  >
+              <Button type="submit" onClick={handleSubmit}>
                 submit
               </Button>
               <Button className="cancel" color="secondary" onClick={toggleLoginModaL}>
@@ -128,51 +177,53 @@ function Nav_Bar(args, props) {
         </div>
         <div>
       <Button color="danger" onClick={registrationtoggle}>
-        Click Me
+        SIGN-UP
       </Button>
       <div className="registration-M">
-      <Modal isOpen={registrationmodal} registrationtoggle ={registrationtoggle } className={className1}>
+      <Modal isOpen={registrationmodal} registrationtoggle ={registrationtoggle } className="props">
         <ModalHeader registrationtoggle ={registrationtoggle } >
           Modal title
         </ModalHeader>
 
         <ModalBody  className="register-MB">
+        <Form onSubmit={handleSubmitreg}>
         <div className="cantainer-register">
           <div className="inputs-Reg">
           < ImUser style={{ color: "orange" }} />
-            <label className="input-reg"  htmlFor="Username">Username</label>
-            <input type="text" name="Username" id="Username"  className="inputs-inter-reg"   />
+            <label className="input-reg"  htmlFor="username">Username</label>
+            <input  name="username" id="username"  className="inputs-inter-reg" value={formdata.username} placeholder="username"  onChange={handleInput}   />
           </div>
           <div>
           <BsEnvelopeFill style={{color:"orange"}}  />
             <label className="inputs-reg" htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" className="inputs-inter-reg"  />
+            <input  name="email" id="email" className="inputs-inter-reg" value={formdata.email} placeholder="Email" onChange={handleInput}  />
           </div>
           <div>
           <FcPrivacy />
             <label  className="inputs-reg"  htmlFor="Password">Password</label>
-            <input type="passsword" name="password" id="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg"  />
+            <input  name="password" id="originalpassword"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg" value={formdata.password} placeholder="password" onChange={handleInput}  type="password"   />
           </div>
           <div>
           <FcPrivacy />
             <label className="inputs-reg"   htmlFor="confirm-Password">Comfirm Password</label>
-            <input type="password" name="password" id="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg" />
+            <input  name="confirmpassword" id="confirmdpassword"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" className="inputs-inter-reg" value={formdata.confirmpassword} placeholder="Confirmpassword" onChange={handleInput} />
           </div>
           <div>
           <FcContacts />
-            <label  className="inputs-reg"   htmlFor="Phone-Number">Phone Number</label>
-            <input type="number" name="number" id="number" className="inputs-inter-reg"  />
+            <label  className="inputs-reg"   htmlFor="phonenumber">Phone Number</label>
+            <input  name="phonenumber" id="phonenumber" className="inputs-inter-reg" value={formdata.phonenumber} onChange={handleInput}  placeholder="phonenumber"  />
           </div>
           <div>
           <LiaAddressBookSolid  style={{background:"orange"}}  />
-            <label  className="inputs-reg"   htmlFor="Address">Address</label>
-            <input type="Address" name="Address" id="Address" className="inputs-inter-reg"   />
+            <label  className="inputs-reg"   htmlFor="address">Address</label>
+            <input  name="address" id="address" className="inputs-inter-reg" value={formdata.address} onChange={handleInput} placeholder="Address"  />
           </div>
         </div>
+        </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={registrationtoggle}>
-            Do Something
+          <Button color="primary" type="submit" onClick={handleSubmitreg} >
+            submit
           </Button>{' '}
           <Button color="secondary" onClick={registrationtoggle}>
             Cancel
